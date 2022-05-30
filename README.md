@@ -16,7 +16,7 @@
 
 - Docker
 
-## Build the image
+## Building the image
 
 ```shell
 # Checkout this repo and build the image
@@ -30,6 +30,21 @@ make run
 # Wait for the Ops Manager service to start at http://localhost:9080/
 # Enjoy!
 ```
+
+## Build-time benchmarks
+
+- tests were performed locally, over WiFi
+- these timings are mostly informative, are are not to be seen as guarantees!
+
+### x86_64 (Apple 2.4 GHz 8-Core Intel Core i9, 2019)
+- `make clean build`: 1:36m
+- `make run` (cold start): 3:44m
+- `make run`: 1:46m
+
+### arm64 (Apple M1 Max, 2021)
+- `make clean build`: 0:45m
+- `make run` (cold start): 2:50m
+- `make run`: 1:20m
 
 ## Building a different Ops Manager version
 

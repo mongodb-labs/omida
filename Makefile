@@ -24,9 +24,9 @@ run:
 	@./build/start.sh $(PACKAGE_NAME) $(VERSION)
 	@echo
 
-.PHONY: build
+.PHONY: build-and-release
 export JDK_ARM64_BINARY
-build-all:
+build-and-release:
 	@echo "Building images for all supported platforms (currently x64 and arm64/v8)..."
-	@./build/build.sh $(PACKAGE_NAME) $(VERSION) all
+	@./build/build-and-release.sh $(PACKAGE_NAME) $(VERSION)
 	@echo

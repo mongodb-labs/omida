@@ -40,5 +40,6 @@ RUN /root/scripts/download-om-tgz.sh --version "$VERSION"
 RUN    /root/scripts/configure-om.sh --appdb "$APPDB_IP"
 
 # Startup command
-CMD    /root/mongodb-mms/bin/start-mongodb-mms --enc-key-path /etc/mongodb-mms/gen.key \
+CMD echo && echo "WARNING: DO NOT USE IN A PRODUCTION ENVIRONMENT!" && echo \
+    && /root/mongodb-mms/bin/start-mongodb-mms --enc-key-path /etc/mongodb-mms/gen.key \
     && tail -n 1000 -F /root/mongodb-mms/etc/mongodb-mms/data/logs/mms0-startup.log /root/mongodb-mms/etc/mongodb-mms/data/logs/mms0.log
