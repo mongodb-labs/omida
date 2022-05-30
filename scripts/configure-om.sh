@@ -2,7 +2,7 @@
 
 declare -i MMS_PORT=9080
 declare -i MMS_SSL_PORT=9443
-declare -i APPDB_PORT=37017
+declare -i APPDB_PORT=27017
 
 _replace_property_in_file() {
     # Parameter check

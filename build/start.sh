@@ -16,7 +16,9 @@ fi
 APPDB_IP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' appdb)
 
 echo "Starting Ops Manager $2"
+docker rm -f "ops-manager-$2"
 docker run \
+    --name ops-manager-"$2" \
     --env VERSION="$2" \
     --env APPDB_IP="$APPDB_IP" \
     --net=bridge \

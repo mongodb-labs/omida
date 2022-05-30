@@ -9,6 +9,7 @@ clean:
 	@echo "Removing existing images..."
 	-docker rmi -f $(PACKAGE_NAME):$(VERSION)
 	-docker rm -f appdb
+	-docker rm -f ops-manager-$(VERSION)
 	@echo
 
 .PHONY: build
