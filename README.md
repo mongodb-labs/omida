@@ -1,20 +1,22 @@
 # OMiDa (OpsManager in Docker/arm64)
 
-> **WARNING: THIS Dockerfile is HIGHLY EXPERIMENTAL**
-> **IT IS NOT A PRODUCTION IMAGE.**
-> **USE AT YOUR OWN RISK!**
+> **WARNING: THIS DOCKER IMAGE IS NOT FOR PRODUCTION USAGE !!!**
+> <br/>**USE AT YOUR OWN RISK!**
 
-## Notes / Warnings
+## Introduction
 
-- this image downloads JDK11/arm64 (aarch64), and the specified Ops Manager version
-- as part of the startup process, it also runs a `mongo:5` container for the AppDB, exposed on port `27017`; this does not use authentication, aka **INSECURE**!
-- the install process starts up Ops Manager during build time, and pregenerates `/etc.mongodb-mms/gen.key`, aka **INSECURE**!
-- it is meant to use as a simple local repro of any given OM version; **it is NOT suited for PRODUCTION use!!!**
-- this image **DOES NOT** start a Backup Daemon
+- This project is meant to help users try out particular Ops Manager versions (configurable in the [Makefile](./Makefile)); **it is NOT suited for PRODUCTION use!!!**
+- When targeting _arm64_ (aarch64), the build process replaces the original x64 JDK11
+- You may need to update the JDK link for newer OM versions
+- Ops Manager needs a running MongoDB to serve as an AppDB; the `build` and `run` phases will start a `mongo:5` container, exposed to the host on port `38017`; this does not use authentication, a.k.a. it is **INSECURE**!
+- During build, Ops Manager is started, which pregenerates `/etc/mongodb-mms/gen.key`, a.k.a. it is **INSECURE**!
+- This image **DOES NOT** start a Backup Daemon
+- This is image is targeted at _arm64_ but also builds and runs on the `x86_64` architecture.
+- **DO NOT USE in PRODUCTION !!!**
 
 ## Prerequisites
 
-- Docker
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) (tested on `4.8.2 (79419)`)
 
 ## Building the image
 
