@@ -18,20 +18,25 @@
 
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/) (tested on `4.8.2 (79419)`)
 
-## Building the image
+## Quickstart
+
+- 1\. Checkout this repo and build the image
 
 ```shell
-# Checkout this repo and build the image
 git clone git@github.com:mongodb-labs/omida.git
 cd omida
 make clean build
-
-# Start the AppDB and Ops Manager
-make run
-
-# Wait for the Ops Manager service to start at http://localhost:9080/
-# Enjoy!
 ```
+
+- 2\. Start the AppDB and Ops Manager
+
+```shell
+make run
+```
+
+- 3\. Wait for the Ops Manager service to start at <http://localhost:9080>
+
+Enjoy!
 
 ## Build-time benchmarks
 
@@ -48,18 +53,26 @@ make run
 - `make run` (cold start): 2:50m
 - `make run`: 1:20m
 
-## Building a different Ops Manager version
+## FAQ
+
+### How do I start a different Ops Manager version?
 
 - edit the [Makefile](./Makefile)
 - set `VERSION=[your desired version]`
-- if building on `arm64`, you might also need to update `JDK_ARM64_BINARY`
 - Rebuild the image `docker clean build`
 
-# Troubleshooting
+> NOTE: if building on `arm64`, you might also need to update `JDK_ARM64_BINARY` (see below)
 
-## AppDB does not start
+### How do I update the JDK on arm64?
 
-Occasionally, you may run out of space, especially if you `make clean build` all the time.
+- find the latest _Linux arm_ JDK release on [Adoptium.net](https://adoptium.net/temurin/archive?version=11) (to do this, look for a string similar to `If the download doesn't start in a few seconds, please _click here_ to start the download.`, right click on `click here` and copy the link)
+- edit the [Makefile](./Makefile)
+- update the `JDK_ARM64_BINARY=` variable
+- run `make clean build`
+
+## What do I do if the AppDB does not start in Docker?
+
+Occasionally, you may run out of space, especially if you repeatedly run `make clean build`.
 In that case, run `make clean && docker volume prune` to clean up space.
 
 Additionally, try deleting the MongoDB docker image (`docker rmi mongo:5`), which will fail but identify
