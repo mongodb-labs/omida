@@ -1,8 +1,11 @@
-name: Ops Manager in Docker CI pipeline
+name: Ops Manager in Docker [CI]
 on: [push]
 jobs:
   docker-build-image:
+    name: "Build the Docker image"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - run: make clean build
+      - name: Check out the code
+        uses: actions/checkout@v3
+      - name: Build the image
+        run: make clean build
