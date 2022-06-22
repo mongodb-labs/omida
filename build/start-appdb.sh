@@ -5,13 +5,13 @@ mdb_version=
 while [[ "$#" -gt 0 ]]; do
     case "$1" in
         --mdb-version) mdb_version="${2-}"; shift 2 ;;
-        * ) echo "Invalid configuration option: '$1'"; return 1 ;;
+        * ) echo "Invalid configuration option: '$1'"; exit 1 ;;
     esac
 done
 
 if [[ -z "$mdb_version" ]]; then
     echo "You must specify a MongoDB version to use!"
-    echo "Usage: start-appdb.sh --mdb_version 5"
+    echo "Usage: start-appdb.sh --mdb-version 5"
     echo
     exit 1
 fi

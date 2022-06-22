@@ -14,7 +14,7 @@ while [[ "$#" -gt 0 ]]; do
         --version) version="${2-}"; shift 2 ;;
         --mdb-version) mdb_version="${2-}"; shift 2 ;;
         --package) package="${2-}"; shift 2 ;;
-        * ) echo "Invalid configuration option: '$1'"; return 1 ;;
+        * ) echo "Invalid configuration option: '$1'"; exit 1 ;;
     esac
 done
 
