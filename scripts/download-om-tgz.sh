@@ -64,17 +64,28 @@ _replace_property_in_file() {
 
 main() {
     local version=
+    local package=
     while [[ "$#" -gt 0 ]]; do
         case "$1" in
             --version) version="${2-}"; shift 2 ;;
+            --package) package="${2-}"; shift 2 ;;
             * ) echo "Invalid configuration option: '$1'"; return 1 ;;
         esac
     done
 
     # Download Ops Manager
     local archive
-    archive="$(_find_om_archive_by_version "$version" "x86_64" "deb" "tar.gz")"
-    _download_ops_manager "$archive" "tar.gz"
+    if [[ "$version" != "" ]]; then
+        archive="$(_find_om_archive_by_version "$version" "x86_64" "deb" "tar.gz")"
+        _download_ops_manager "$archive" "tar.gz"
+    elif [[ "$package" != "" ]]; then
+        _download_ops_manager "$package" "tar.gz"
+    else
+        echo
+        echo "You must specify an Ops Manager version or a package link; aborting..."
+        exit 1
+    fi
+    
     mkdir -p /root/mongodb-mms
     chmod -R 0777 /root/mongodb-mms
     tar -xzf "ops_manager.tar.gz" -C "/root/mongodb-mms" --strip-components 1
