@@ -22,6 +22,7 @@ docker buildx build \
     --platform linux/arm64/v8,linux/amd64 \
     --push \
     --build-arg VERSION="$2" \
+    --build-arg PACKAGE="$3" \
     --build-arg APPDB_IP="$APPDB_IP" \
     --build-arg JDK_ARM64_BINARY="$JDK_ARM64_BINARY" \
     --tag "$1:$2" \

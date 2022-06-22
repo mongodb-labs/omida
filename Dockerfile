@@ -21,7 +21,8 @@ RUN apt-get update \
 
 # Specify Ops Manager version
 ARG VERSION
-RUN test -n "$VERSION" || (echo "Ops Manager VERSION must be set (e.g., '5.0.10')" && false)
+ARG PACKAGE
+RUN test -n "$VERSION" || test -n "$PACKAGE" || (echo "Ops Manager PACKAGE or VERSION must be set (e.g., '5.0.10')" && false)
 
 # Specify AppDB IP
 ARG APPDB_IP
@@ -34,7 +35,7 @@ COPY scripts /root/scripts
 # It is separated here to allow fast rebuilds if OM configuration needs to be changed.
 ARG TARGETARCH
 ARG JDK_ARM64_BINARY
-RUN /root/scripts/download-om-tgz.sh --version "$VERSION"
+RUN (test -n "$PACKAGE" && /root/scripts/download-om-tgz.sh --package "$PACKAGE") || /root/scripts/download-om-tgz.sh --version "$VERSION"
 
 # Configure Ops Manager (edit the script for any config changes, then run `make clean build`)
 RUN    /root/scripts/configure-om.sh --appdb "$APPDB_IP"

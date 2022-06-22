@@ -12,7 +12,7 @@ if [[ "$#" -lt 2 ]]; then
     exit 1
 fi
 
-"$DIR"/start-appdb.sh
+"$DIR"/start-appdb.sh "$3"
 APPDB_IP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' appdb)
 
 echo "Starting Ops Manager $2"

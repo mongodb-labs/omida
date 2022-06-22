@@ -11,13 +11,14 @@ if [[ "$#" -lt 2 ]]; then
     exit 1
 fi
 
-"$DIR"/start-appdb.sh
+"$DIR"/start-appdb.sh "$3"
 APPDB_IP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' appdb)
 
 echo "Building the container for the local target architecture..."
 echo
 docker build \
     --build-arg VERSION="$2" \
+    --build-arg PACKAGE="$4" \
     --build-arg APPDB_IP="$APPDB_IP" \
     --build-arg JDK_ARM64_BINARY="$JDK_ARM64_BINARY" \
     --tag "$1:$2" \
